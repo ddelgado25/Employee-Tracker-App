@@ -156,3 +156,34 @@ function viewAllEmployees() {
   
       })})
     };
+
+// Function allows user to updated an existing Employee when selected on main menu
+    const updateEmployee = async () => {
+        await inquirer.prompt([
+            {
+              type: "input",
+              message: "Which employee would you like to update?",
+              name: "employeeUpdate"
+            },
+      
+            {
+              type: "input",
+              message: "What is the employees new role ID?",
+              name: "roleUpdate"
+            }]
+          )
+      
+          .then(function(update){
+            db.query("UPDATE employee SET role_id=? WHERE first_name= ?", [update.employeeUpdate, update.roleUpdate], (err, res) => {
+              if (err) throw (err);
+              console.table(res);
+      
+          })})
+      
+      };
+      
+      async function init() {
+          await questions();
+      }
+      
+      init();
