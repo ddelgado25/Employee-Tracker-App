@@ -93,3 +93,33 @@ function viewAllEmployees() {
   
       })})
   };
+
+// Function allows user to add a department when selected on main menu
+  const addRole = async () => {
+    await inquirer.prompt ([
+      {
+          type: 'input',
+          name: 'newRole',
+          message: 'What new Role would you like to add?'
+  
+      },
+      {
+          type: 'input',
+          name: 'newSalary',
+          message: 'What is the salary of the new Role?'
+  
+      },
+      {
+          type: 'input',
+          name: 'newRoleDept',
+          message: 'What is the id of the department the new Role belongs to?'
+      }]
+      )
+  
+      .then(function(roleName){
+        db.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", [roleName.newRole, roleName.newSalary, roleName.newRoleDept] , (err, res) => {
+          if (err) throw (err);
+          console.table(res);
+  
+  })})
+  };
