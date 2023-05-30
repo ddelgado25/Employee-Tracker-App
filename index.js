@@ -30,7 +30,7 @@ const questions = async () => {
                     viewAllRoles();
                     break;
                 case "View All Employees":
-                    allEmployees();
+                    viewAllEmployees();
                     break;
                 case "Add a Department":
                     addDept();
@@ -66,3 +66,12 @@ function viewAllRoles() {
         console.table(res);
     });
 }
+
+// Functiion allows user to view all employees when selected on main menu
+function viewAllEmployees() {
+    db.query("SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.title, role.salary, role.id, department.id FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id", (err, res) => {
+      if (err) throw (err);
+      console.table(res);
+    
+    }
+  )};
