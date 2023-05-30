@@ -94,7 +94,7 @@ function viewAllEmployees() {
       })})
   };
 
-// Function allows user to add a department when selected on main menu
+// Function allows user to add a role when selected on main menu
   const addRole = async () => {
     await inquirer.prompt ([
       {
@@ -123,3 +123,36 @@ function viewAllEmployees() {
   
   })})
   };
+
+// Function allows user to add a Employee when selected on main menu
+  const addEmployee = async () => {
+    await inquirer.prompt([
+      {
+        type: "input",
+        message: "What's the first name of the employee?",
+        name: "newFirstName"
+      },
+      {
+        type: "input",
+        message: "What's the last name of the employee?",
+        name: "newLastName"
+      },
+      {
+        type: "input",
+        message: "What is the employees role id number?",
+        name: "newRoleID"
+      },
+      {
+        type: "input",
+        message: "What is the manager id number?",
+        name: "managerID"
+      }]
+    )
+  
+    .then(function(employeeName){
+      db.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [employeeName.newFirstName, employeeName.newLastName, employeeName.newRoleID, employeeName.managerID] , (err, res) => {
+        if (err) throw (err);
+        console.table(res);
+  
+      })})
+    };
