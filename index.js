@@ -50,3 +50,12 @@ const questions = async () => {
           }
         })
 };
+
+// Functiion allows user to view all departments when selected on main menu
+function viewAllDepartments() {
+    connection.query('SELECT * FROM department', (err, res) => {
+        if (err) throw err;
+        console.table(res);
+        promptUser();
+    });
+}
